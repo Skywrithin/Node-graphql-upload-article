@@ -2,16 +2,19 @@ import { Storage } from "@google-cloud/storage";
 import { gql } from "apollo-server-express";
 import path from "path";
 
-const bucketName = 'owl-testbucket'
+const bucketName = 'minted-nfts'
+import test from "../remotify-secret-key.json"
 
 let Data = [];
 
 const storage =  new Storage({
-  keyFilename: path.join(__dirname, "../remotify-secret-key.json"),
+  keyFilename: "./src/remotify-secret-key.json",
+  projectId: bucketName
 });
 
 async function createBucket() {
   await storage.createBucket('owl-testbucket');
+  // await storage.getBuckets('owl-testbucket')
   // console.log(`Bucket ${bucketName} created.`)
 }
 
@@ -19,7 +22,7 @@ async function createBucket() {
 export const Query = {
   
   getUser: () => {
-    createBucket()
+    createBucket().catch(console.error)
     return Data;
   },
   

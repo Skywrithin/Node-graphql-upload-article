@@ -1,2 +1,3 @@
 ./node_modules
 ./src/remotify-secret-key.json
+node-graphql-api/graphql-api/src/remotify-secret-key.json
