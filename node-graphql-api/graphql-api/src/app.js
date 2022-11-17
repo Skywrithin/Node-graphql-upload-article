@@ -2,6 +2,7 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { Query, Mutation } from "./schema/resolvers";
 
+
 const typeDefs = `
 type File {
   filename: String!
@@ -18,6 +19,7 @@ type User {
 
 type Query {
   getUser: [User]
+  readBucket: Boolean
 }
 
 type Mutation {

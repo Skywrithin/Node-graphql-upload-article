@@ -1,12 +1,29 @@
 import { Storage } from "@google-cloud/storage";
 import { gql } from "apollo-server-express";
 import path from "path";
-import BUCKET from "../../../../env.json"
+
+const bucketName = 'owl-testbucket'
 
 let Data = [];
 
+const storage =  new Storage({
+  keyFilename: path.join(__dirname, "../remotify-secret-key.json"),
+});
+
+async function createBucket() {
+  await storage.createBucket('owl-testbucket');
+  // console.log(`Bucket ${bucketName} created.`)
+}
+
+
 export const Query = {
+  
   getUser: () => {
+    createBucket()
+    return Data;
+  },
+  
+  readBucket: ()=> {
     return Data;
   },
 };
@@ -62,13 +79,6 @@ export const Mutation = {
     });
   },
 
-  readBucket: ()=> {
-    data = [];
-    const bucketName = BUCKET;
-
-
-
-  },
 
   deleteUser: (_, {}) => {
     Data = [];
