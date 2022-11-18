@@ -8,21 +8,23 @@ let Data = [];
 
 const storage =  new Storage({
   keyFilename: "./src/remotify-secret-key.json",
-  projectId:"test-api-368921"
+  projectId:"test-api"
 });
 
-async function createBucket() {
+async function listBucket() {
   // const data = await storage.getBuckets('owl-test-bucket-01')
   const [files] = await storage.bucket('owl-test-bucket-01').getFiles();
+  console.log(files)
   files.forEach(file => console.log(file.name))
+  // return files
 }
-
+``
 
 
 export const Query = {
   
   getUser: () => {
-    createBucket().catch(console.error)
+    listBucket().catch(console.error)
     return Data;
   },
 
@@ -33,7 +35,6 @@ export const Query = {
 
 const removeWhiteSpaces = (name) => {
   let newName = name.replace(/\s+/g, "");
-
   return newName;
 };
 
@@ -46,7 +47,6 @@ export const Mutation = {
     });
   
   // testCall: async (_, {username, image}) => {
-
   // }
 
     const { filename, createReadStream } = await image;
@@ -58,8 +58,8 @@ export const Mutation = {
           .bucket(bucketName)
           .file(sanitizedName)
           .createWriteStream()
-          .on("finish", () => {
-            storage
+          .on("finish", () => {``
+            storage``
               .bucket(bucketName)
               .file(sanitizedName)
               .makePublic()
